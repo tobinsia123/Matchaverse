@@ -2,6 +2,7 @@
 
 A full-stack web application for UCI students to discover and explore matcha spots in and around Irvine, CA.
 
+
 ## Features
 
 - 🔍 **Search & Filter**: Search matcha spots by name, location, or description
