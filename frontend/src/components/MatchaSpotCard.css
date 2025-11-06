@@ -239,6 +239,35 @@
   box-shadow: 0 4px 12px rgba(45, 55, 72, 0.4);
 }
 
+/* Distance badge */
+.distance-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(45, 55, 72, 0.95);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Directions button */
+.action-btn.directions {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.action-btn.directions:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #63408e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+}
+
 @media (max-width: 768px) {
   .spot-content {
     padding: 16px;

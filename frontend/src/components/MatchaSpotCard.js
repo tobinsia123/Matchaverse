@@ -1,7 +1,7 @@
 import React from 'react';
 import './MatchaSpotCard.css';
 
-const MatchaSpotCard = ({ spot }) => {
+const MatchaSpotCard = ({ spot, userLocation }) => {
   // Convert rating to number if it's a string
   const rating = spot.rating ? parseFloat(spot.rating) : null;
   
@@ -28,6 +28,40 @@ const MatchaSpotCard = ({ spot }) => {
     return <div className="stars">{stars}</div>;
   };
 
+  // Calculate distance from user location
+  const calculateDistance = () => {
+    if (!userLocation || !spot.latitude || !spot.longitude) return null;
+    
+    const [userLat, userLng] = userLocation;
+    const spotLat = parseFloat(spot.latitude);
+    const spotLng = parseFloat(spot.longitude);
+    
+    // Haversine formula
+    const toRad = (value) => (value * Math.PI) / 180;
+    const R = 3959; // Earth's radius in miles
+    
+    const dLat = toRad(spotLat - userLat);
+    const dLng = toRad(spotLng - userLng);
+    
+    const a = 
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(userLat)) * Math.cos(toRad(spotLat)) *
+      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+    
+    return distance < 0.1 ? '< 0.1 mi' : `${distance.toFixed(1)} mi`;
+  };
+
+  const handleGetDirections = (e) => {
+    e.stopPropagation();
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${spot.latitude},${spot.longitude}`;
+    window.open(url, '_blank');
+  };
+
+  const distance = calculateDistance();
+
   return (
     <div 
       id={`spot-${spot.id}`}
@@ -35,6 +69,10 @@ const MatchaSpotCard = ({ spot }) => {
     >
       {spot.is_featured && (
         <div className="featured-badge">Featured</div>
+      )}
+      
+      {distance && (
+        <div className="distance-badge">📍 {distance}</div>
       )}
       
       {spot.image_url ? (
@@ -76,6 +114,15 @@ const MatchaSpotCard = ({ spot }) => {
         </div>
         
         <div className="spot-actions">
+          {spot.latitude && spot.longitude && (
+            <button 
+              className="action-btn directions"
+              onClick={handleGetDirections}
+              title="Get directions"
+            >
+              🗺️ Directions
+            </button>
+          )}
           {spot.phone && (
             <a href={`tel:${spot.phone}`} className="action-btn phone">
               📞 Call

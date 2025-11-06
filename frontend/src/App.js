@@ -19,6 +19,7 @@ function App() {
   });
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
   const [selectedSpot, setSelectedSpot] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
   const appRef = useRef(null);
 
   useEffect(() => {
@@ -110,6 +111,7 @@ function App() {
           spots={filteredSpots} 
           onMarkerClick={handleMarkerClick}
           selectedSpot={selectedSpot}
+          onUserLocationChange={setUserLocation}
         />
         
         {/* Floating button to open sidebar */}
@@ -139,6 +141,7 @@ function App() {
             setSearchTerm('');
           }}
           loading={loading}
+          userLocation={userLocation}
         />
       </div>
 

@@ -3,7 +3,7 @@ import MatchaSpotCard from './MatchaSpotCard';
 import LoadingSkeleton from './LoadingSkeleton';
 import './Sidebar.css';
 
-const Sidebar = ({ spots, isOpen, onClose, onSpotClick, searchTerm, onSearchChange, filter, onFilterChange, showFeaturedOnly, onFeaturedToggle, onClearFilters, loading }) => {
+const Sidebar = ({ spots, isOpen, onClose, onSpotClick, searchTerm, onSearchChange, filter, onFilterChange, showFeaturedOnly, onFeaturedToggle, onClearFilters, loading, userLocation }) => {
   const [isDragging, setIsDragging] = useState(false);
 
   return (
@@ -122,7 +122,7 @@ const Sidebar = ({ spots, isOpen, onClose, onSpotClick, searchTerm, onSearchChan
                       opacity: 0
                     }}
                   >
-                    <MatchaSpotCard spot={spot} />
+                    <MatchaSpotCard spot={spot} userLocation={userLocation} />
                   </div>
                 ))}
               </div>

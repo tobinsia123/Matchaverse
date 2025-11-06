@@ -59,7 +59,7 @@ const MapController = ({ center, zoom }) => {
   return null;
 };
 
-const MapView = ({ spots, onMarkerClick, selectedSpot }) => {
+const MapView = ({ spots, onMarkerClick, selectedSpot, onUserLocationChange }) => {
   const mapRef = useRef(null);
   const [userLocation, setUserLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
@@ -73,11 +73,16 @@ const MapView = ({ spots, onMarkerClick, selectedSpot }) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setUserLocation([latitude, longitude]);
+          const location = [latitude, longitude];
+          setUserLocation(location);
           setLocationError(null);
+          // Notify parent component
+          if (onUserLocationChange) {
+            onUserLocationChange(location);
+          }
           // Center map on user location
           if (mapRef.current) {
-            mapRef.current.setView([latitude, longitude], 15, {
+            mapRef.current.setView(location, 15, {
               animate: true,
               duration: 1.0
             });
