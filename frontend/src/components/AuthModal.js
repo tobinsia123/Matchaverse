@@ -41,15 +41,15 @@ const AuthModal = ({ isOpen, mode, onClose, onSwitchMode, onSubmit, loading, err
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Email</label>
             <input
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               type="text"
               value={formData.username}
               onChange={handleChange}
               required
-              placeholder="Your username"
+              placeholder="Your email"
             />
           </div>
 
